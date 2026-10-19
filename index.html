@@ -45,11 +45,24 @@ footer{color:var(--muted);font-size:13px}
 .ctrl.main{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
+.buch{--c:#2f6f8f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .buch{--c:#7fb6d4}}
+:root[data-theme="dark"] .buch{--c:#7fb6d4}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">Pachapaul · aktueller Stand</div>
+  <section id="buch" class="buch">
+    <header>
+      <div class="artist">Paul Höser · Hörbuch-Vorschau</div>
+      <h1>Vibe <span class="hl">Coding</span></h1>
+      <p class="lede">mit Claude Code für Nicht-Programmierer. Ich programmiere nicht. Ich beschreibe. Gelesen mit Pauls KI-Stimme – die erste Stunde: Vorwort bis Kapitel 3.</p>
+      <div class="meta"></div>
+    </header>
+    <button class="play-all" type="button">▶ Alles abspielen</button>
+    <ol></ol>
+  </section>
   <section id="herz" style="--c:var(--accent)">
     <header>
       <div class="artist">Pachapaul · Deutschpop</div>
@@ -75,9 +88,9 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 <div class="dock" id="dock" hidden>
   <div class="dock-in">
     <div class="row">
-      <button class="ctrl" id="prev" type="button" aria-label="Vorheriger Song">⏮</button>
+      <button class="ctrl" id="prev" type="button" aria-label="Zurück">⏮</button>
       <button class="ctrl main" id="toggle" type="button" aria-label="Pause">❚❚</button>
-      <button class="ctrl" id="next" type="button" aria-label="Nächster Song">⏭</button>
+      <button class="ctrl" id="next" type="button" aria-label="Weiter">⏭</button>
       <div class="now" id="now"></div>
     </div>
     <div class="bar"><span id="cur">0:00</span><input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Position"><span id="tot">0:00</span></div>
@@ -86,6 +99,11 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 <audio id="audio" preload="none"></audio>
 <script>
 const A={
+ buch:[["Vorwort",480,"Wie alles anfing – drei Projekte, die das Buch tragen","hoerbuch/00-vorwort.mp3"],
+       ["So nutzt du dieses Buch",194,"Aufbau, drei Lesewege, Einstieg in Teil 1","hoerbuch/01-so-nutzt-du-dieses-buch.mp3"],
+       ["Kapitel 1: Was Claude Code eigentlich ist",768,"Chatbot oder Agent, die vier Hände, der Fissel-Test","hoerbuch/02-kapitel-1.mp3"],
+       ["Kapitel 2: Einrichten",962,"Speicher, Abo, App, Ordner und der erste Konnektor","hoerbuch/03-kapitel-2.mp3"],
+       ["Kapitel 3: Das erste Gespräch",839,"Briefen lassen, Plan lesen, die sechs Haltepunkte","hoerbuch/04-kapitel-3.mp3"]],
  herz:[["Reich",238,"Ruhige Klavierballade – wenig Geld, viel Leben","herzarbeit/reich-qa.mp3"],
        ["Alte Männer",256,"Antikriegslied – ganz ruhig","herzarbeit/alte-maenner-ek.mp3"],
        ["Trotzdem",190,"Alleinerziehende Mutter – neu mit der Reich-Stimme","herzarbeit/trotzdem-neu.mp3"],
@@ -114,7 +132,7 @@ const A={
 const fmt=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
 const $=id=>document.getElementById(id),audio=$("audio");let cur=null,idx=-1;
 for(const key in A){const sec=$(key),T=A[key],list=sec.querySelector("ol");
- sec.querySelector(".meta").textContent=`${T.length} ${T.length===1?"Song":"Songs"} · ${Math.round(T.reduce((a,t)=>a+t[1],0)/60)} Min.`;
+ sec.querySelector(".meta").textContent=`${T.length} ${key==="buch"?"Teile":(T.length===1?"Song":"Songs")} · ${Math.round(T.reduce((a,t)=>a+t[1],0)/60)} Min.`;
  T.forEach(([n,d,note],i)=>{const li=document.createElement("li"),b=document.createElement("button");b.type="button";b.className="track";b.dataset.k=key;b.dataset.i=i;
   b.innerHTML=`<span class="no">${String(i+1).padStart(2,"0")}</span><span class="name"></span><span class="dur">${fmt(d)}</span>`;
   const nm=b.querySelector(".name");nm.textContent=n;const s=document.createElement("span");s.className="note";s.textContent=note;nm.appendChild(s);
