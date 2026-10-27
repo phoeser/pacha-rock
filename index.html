@@ -52,6 +52,7 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lena{--c:#ff6b6b}}
 :root[data-theme="dark"] .lena{--c:#ff6b6b}
 #lena-slot:empty{display:none}
+.cover{display:block;width:100%;max-width:340px;height:auto;aspect-ratio:1;border-radius:12px;margin:0 0 16px;box-shadow:0 8px 30px rgba(0,0,0,.35)}
 </style>
 </head>
 <body>
@@ -80,6 +81,7 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
   <section id="reggae" style="--c:#e0592a">
     <header>
       <div class="artist">Pachapaul · Latino</div>
+      <img class="cover" src="pachareggaeton/cover.jpg" alt="Albumcover Pacha Reggaeton" width="1000" height="1000" loading="lazy">
       <h1>Pacha <span class="hl">Reggaeton</span></h1>
       <p class="lede">Reggaeton, Salsa und Flirt-Duette auf Spanisch – die ersten Songs.</p>
       <div class="meta"></div>
