@@ -46,6 +46,14 @@ footer{color:var(--muted);font-size:13px}
 .bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 .buch{--c:#2f6f8f}
+.kap{margin-top:12px}
+.kap summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--c);border-radius:999px;color:var(--c);font-weight:600;font-size:14px}
+.kap summary::-webkit-details-marker{display:none}
+.kap summary::before{content:"▸";transition:transform .15s}
+.kap[open] summary::before{transform:rotate(90deg)}
+.kap .kap-auf,.kap[open] .kap-zu{display:none}
+.kap[open] .kap-auf{display:inline}
+.kap summary:focus-visible{outline:2px solid var(--c);outline-offset:2px}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .buch{--c:#7fb6d4}}
 :root[data-theme="dark"] .buch{--c:#7fb6d4}
 .lena{--c:#c4262e}
@@ -126,7 +134,10 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
+    <details class="kap">
+      <summary><span class="kap-zu">Kapitel anzeigen</span><span class="kap-auf">Kapitel einklappen</span></summary>
+      <ol></ol>
+    </details>
   </section>
   <section id="roots" style="--c:#2e8b3d">
     <header>
@@ -136,7 +147,10 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
+    <details class="kap">
+      <summary><span class="kap-zu">Songs anzeigen</span><span class="kap-auf">Songs einklappen</span></summary>
+      <ol></ol>
+    </details>
   </section>
   <section id="herz" style="--c:var(--accent)">
     <header>
@@ -146,7 +160,10 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
+    <details class="kap">
+      <summary><span class="kap-zu">Songs anzeigen</span><span class="kap-auf">Songs einklappen</span></summary>
+      <ol></ol>
+    </details>
   </section>
   <section id="reggae" style="--c:#e0592a">
     <header>
@@ -157,7 +174,10 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
+    <details class="kap">
+      <summary><span class="kap-zu">Songs anzeigen</span><span class="kap-auf">Songs einklappen</span></summary>
+      <ol></ol>
+    </details>
   </section>
   <section id="licht" style="--c:#c08a1e">
     <header>
@@ -167,7 +187,10 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
+    <details class="kap">
+      <summary><span class="kap-zu">Songs anzeigen</span><span class="kap-auf">Songs einklappen</span></summary>
+      <ol></ol>
+    </details>
   </section>
   <section id="ewp" class="punk" style="--c:var(--punk)">
     <header>
@@ -177,7 +200,10 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
+    <details class="kap">
+      <summary><span class="kap-zu">Songs anzeigen</span><span class="kap-auf">Songs einklappen</span></summary>
+      <ol></ol>
+    </details>
   </section>
   <section id="punk" class="punk" style="--c:var(--punk)">
     <header>
@@ -187,7 +213,10 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
+    <details class="kap">
+      <summary><span class="kap-zu">Songs anzeigen</span><span class="kap-auf">Songs einklappen</span></summary>
+      <ol></ol>
+    </details>
   </section>
   <section id="lena" class="lena">
     <header>
