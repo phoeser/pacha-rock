@@ -58,16 +58,6 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 <body>
 <div class="wrap">
   <div class="top">Pachapaul · aktueller Stand</div>
-  <section id="bio" class="buch">
-    <header>
-      <div class="artist">Paul Höser · Biohacking Kompakt · Entwurf zum Vorhören</div>
-      <h1>Biohacking <span class="hl">ab 40</span></h1>
-      <p class="lede">Biohacking für Männer ab 40. Supplements, Testosteron, Peptide: Erfahrungen aus der Praxis statt aus dem Lehrbuch. Erster Entwurf V0, nicht zur Weitergabe.</p>
-      <div class="meta"></div>
-    </header>
-    <button class="play-all" type="button">▶ Alles abspielen</button>
-    <ol></ol>
-  </section>
   <section id="buch" class="buch">
     <header>
       <div class="artist">Paul Höser · Hörbuch-Vorschau</div>
@@ -165,7 +155,6 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 <audio id="audio" preload="none"></audio>
 <script>
 const A={
- bio:[["Vorwort und Kapitel 12: Testosteron",642,"Entwurf V0 vom 14.11.2026 – eigentlich fit, aber platt; der erste große Schritt","biobuch/bio-v0-vorwort-kap12.mp3?v=1"],["Kapitel 13: INUSpherese",334,"Entwurf V0 vom 14.11.2026 – das Heftigste, was ich gemacht habe","biobuch/bio-v0-kap13.mp3?v=1"],["Kapitel 17: Abnehmen",464,"Entwurf V0 vom 14.11.2026 – Rückenwind statt Dauerlösung","biobuch/bio-v0-kap17.mp3?v=1"]],
  buch:[["Vorwort",550,"Wie alles anfing – drei Projekte, die das Buch tragen","hoerbuch/00-vorwort.mp3?v=4"],
        ["So nutzt du dieses Buch",220,"Aufbau, drei Lesewege, Einstieg in Teil 1","hoerbuch/01-so-nutzt-du-dieses-buch.mp3?v=4"],
        ["Kapitel 1: Was Claude Code eigentlich ist",866,"Chatbot oder Agent, die vier Hände, der Fissel-Test","hoerbuch/02-kapitel-1.mp3?v=4"],
@@ -188,7 +177,7 @@ const A={
        ["Kapitel 18: Dein 30-Tage-Plan",859,"Vier Wochen, vier Ziele","hoerbuch/21-kapitel-18.mp3?v=4"],
        ["Nachwort: Ich beschreibe. Du auch?",199,"Vom Macher zum Dirigenten","hoerbuch/22-nachwort.mp3?v=4"],
        ["Über den Autor",106,"Paul Höser – und der Hinweis auf die Begleitseite","hoerbuch/23-ueber-den-autor.mp3?v=4"]],
- roots:[["One Blood",225,"Neu – kraftvoller Roots Reggae gegen rechts: Steppers-Beat, Bläser, Dub-Drop, Singjay-Stimme und Frauenchor","pacharoots/one-blood.mp3"],["No Place for Hate",240,"Titelsong – marschierender Roots Reggae im Wailers-Sound: One Drop, Melodie-Bass, Bläser-Hook, Toasting-Bridge","pacharoots/no-place-for-hate.mp3"],["Carry the Light",240,"Tanzbare Hymne im Stil von „Could You Be Loved“ – Gitarren-Riff, Clavinet, I-Threes-Chor, für alle, die aufgestanden sind","pacharoots/carry-the-light.mp3"],["Unity",240,"Klassischer Wailers-Sound wie „Jamming“ und „Exodus“: Steppers-Groove, Wah-Gitarre, Bläser, I-Threes-Chor mit „Unity!“-Hook","pacharoots/unity.mp3"],["Wi Nah Bow",225,"Kingston-Roots in dickem Patois: neue tiefe Roots-Stimme, Nyabinghi-Trommeln, Melodica, Deejay-Toasting","pacharoots/wi-nah-bow.mp3"],["Stand Firm",229,"Harter Marley-Sound: One Drop, schwerer Bass, Wah-Gitarre, kämpferische Stimme, „Stand firm!“-Chor","pacharoots/stand-firm.mp3"],["Love A Go Win",215,"Entspannter One Drop wie „Three Little Birds“: sonnig, tröstlich, Mitsing-Refrain mit I-Threes-Chor","pacharoots/love-a-go-win.mp3"]],
+ roots:[["One Blood",225,"Neu – kraftvoller Roots Reggae gegen rechts: Steppers-Beat, Bläser, Dub-Drop, Singjay-Stimme und Frauenchor","pacharoots/one-blood.mp3"],["No Place for Hate",240,"Titelsong – marschierender Roots Reggae im Wailers-Sound: One Drop, Melodie-Bass, Bläser-Hook, Toasting-Bridge","pacharoots/no-place-for-hate.mp3"],["Carry the Light",240,"Tanzbare Hymne im Stil von „Could You Be Loved“ – Gitarren-Riff, Clavinet, I-Threes-Chor, für alle, die aufgestanden sind","pacharoots/carry-the-light.mp3"],["Unity",240,"Klassischer Wailers-Sound wie „Jamming“ und „Exodus“: Steppers-Groove, Wah-Gitarre, Bläser, I-Threes-Chor mit „Unity!“-Hook","pacharoots/unity.mp3"],["Wi Nah Bow",225,"Kingston-Roots in dickem Patois: neue tiefe Roots-Stimme, Nyabinghi-Trommeln, Melodica, Deejay-Toasting","pacharoots/wi-nah-bow.mp3"],["Stand Firm",229,"Harter Marley-Sound: One Drop, schwerer Bass, Wah-Gitarre, kämpferische Stimme, „Stand firm!“-Chor","pacharoots/stand-firm.mp3"],["Love A Go Win",215,"Entspannter One Drop wie „Three Little Birds“: sonnig, tröstlich, Mitsing-Refrain mit I-Threes-Chor","pacharoots/love-a-go-win.mp3"],["Sun A Shine Pon Everybody",225,"Neu – sonniger One-Drop-Roots im Stil von Three Little Birds: I-Threes-Chor, Melodica, Patois","pacharoots/sun-a-shine.mp3"]],
  herz:[["Reich",238,"Alte Fassung – Klavierballade","herzarbeit/reich-qa.mp3"],
        ["Alte Männer",223,"✓ Neu: Männer-Duett unplugged mit Cello","herzarbeit/alte-maenner-v5a.mp3"],
        ["Trotzdem",225,"✓ Neu: raue tiefe Frauenstimme, Tremolo-Gitarre","herzarbeit/trotzdem-frau-a.mp3"],
