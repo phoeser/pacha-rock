@@ -53,11 +53,71 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 :root[data-theme="dark"] .lena{--c:#ff6b6b}
 #lena-slot:empty{display:none}
 .cover{display:block;width:100%;max-width:340px;height:auto;aspect-ratio:1;border-radius:12px;margin:0 0 16px;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+
+.studio{--c:#6b4bb8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .studio{--c:#b59cff}}
+:root[data-theme="dark"] .studio{--c:#b59cff}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.grid2{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);font-weight:600}
+.fld input,.fld select,.fld textarea,.ed input,.ed select,.ed textarea{font:inherit;font-size:16px;font-weight:400;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+.fld textarea,.ed textarea{min-height:70px;resize:vertical}
+.btn{align-self:flex-start;background:var(--c);color:var(--accent-ink);border:0;border-radius:999px;padding:11px 20px;font-weight:600}
+.btn.ghost{background:none;color:var(--fg);border:1px solid var(--line)}
+.msg{font-size:14px;color:var(--muted);min-height:1.2em}
+.msg.err{color:#c62f1f}
+.orders{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.orders li{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}
+.orders b{font-family:var(--display);font-size:17px;font-weight:600}
+.badge{display:inline-block;font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.04em;padding:2px 8px;border-radius:999px;border:1px solid currentColor;margin-right:6px;vertical-align:2px;white-space:nowrap}
+.b-neu{color:#6b4bb8}.b-arbeit{color:#c08a1e}.b-freigabe{color:#d0562b}.b-frei{color:#2e8b3d}.b-pub{color:#1d7fb8}.b-aendern{color:#c62f1f}
+li.trk{display:grid;grid-template-columns:1fr auto;align-items:center;border-bottom:1px solid var(--line)}
+li.trk .track{border-bottom:0}
+.more{all:unset;cursor:pointer;color:var(--muted);padding:8px 6px 8px 10px;font-size:18px}
+.more:focus-visible{outline:2px solid var(--fg)}
+.ed{grid-column:1/-1;display:flex;flex-direction:column;gap:8px;padding:4px 4px 16px}
+.ed .row2{display:flex;gap:8px;flex-wrap:wrap}
+.sp{font-size:12px;color:#1db954;text-decoration:none;font-weight:600;margin-left:4px}
+li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">Pachapaul · aktueller Stand</div>
+  <section id="studio" class="studio">
+    <header>
+      <div class="artist">Pachapaul · Musik-Studio</div>
+      <h1>Neuer <span class="hl">Song</span></h1>
+      <p class="lede">Lied beauftragen, Status verfolgen, Songs freigeben oder ausblenden. Claude arbeitet die Aufträge alle 6 Stunden ab – oder sofort, wenn du in Cowork „Studio“ sagst.</p>
+    </header>
+    <div class="card">
+      <div class="tools"><label class="fld" style="flex:1;min-width:200px">Studio-Code<input id="pw" type="password" autocomplete="current-password" placeholder="nur für Änderungen nötig"></label>
+        <label><input type="checkbox" id="showhidden"> ausgeblendete Songs zeigen</label></div>
+    </div>
+    <form class="card" id="brief">
+      <h2>Briefing</h2>
+      <div class="grid2">
+        <label class="fld">Album<select name="album"><option value="roots">No Place for Hate (Roots Reggae)</option><option value="licht">Licht an (Akustik-Pop)</option><option value="reggae">Reggaeton de Sudamérica</option><option value="herz">Herzarbeit (Deutschpop)</option><option value="ewp">Pachapunk – Erste Welt Probleme</option><option value="punk">Laut &amp; Klar (Deutschpunk)</option><option value="neu">Neues Album …</option></select></label>
+        <label class="fld">Arbeitstitel / Thema<input name="titel" placeholder="z. B. Sonntag am See"></label>
+        <label class="fld">Genre<input name="genre" placeholder="z. B. Roots Reggae, One Drop"></label>
+        <label class="fld">Tempo<select name="tempo"><option>passend zum Beispiel</option><option>langsam</option><option>mittel</option><option>schnell</option><option>sehr schnell</option></select></label>
+        <label class="fld">Stimme<input name="stimme" placeholder="z. B. Albumstimme, Duett, Frauenstimme"></label>
+        <label class="fld">Sprache<select name="sprache"><option>Deutsch</option><option>Englisch</option><option>Patois</option><option>Spanisch</option><option>Andere (Freitext)</option></select></label>
+      </div>
+      <label class="fld">Beispiel-Links (YouTube/Spotify, je Zeile einer)<textarea name="links" placeholder="https://youtu.be/…"></textarea></label>
+      <label class="fld">Sound &amp; Instrumente<input name="sound" placeholder="z. B. Bläser, Orgel, viel Bass – kein Triangel"></label>
+      <label class="fld">Text-Idee / Freitext<textarea name="text" placeholder="Worum geht es? Eigene Zeilen? Was soll auf keinen Fall rein?"></textarea></label>
+      <button class="btn" type="submit">Jetzt produzieren</button>
+      <div class="msg" id="briefmsg"></div>
+    </form>
+    <div class="card">
+      <h2>Aufträge</h2>
+      <ul class="orders" id="orders"><li>Lade …</li></ul>
+    </div>
+  </section>
   <section id="buch" class="buch">
     <header>
       <div class="artist">Paul Höser · Hörbuch-Vorschau</div>
@@ -235,14 +295,67 @@ const A={
 };
 const fmt=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
 const $=id=>document.getElementById(id),audio=$("audio");let cur=null,idx=-1;
-for(const key in A){const sec=$(key),T=A[key],list=sec.querySelector("ol");
- sec.querySelector(".meta").textContent=`${T.length} ${key==="buch"?"Teile":(T.length===1?"Song":"Songs")} · ${Math.round(T.reduce((a,t)=>a+t[1],0)/60)} Min.`;
- T.forEach(([n,d,note],i)=>{const li=document.createElement("li"),b=document.createElement("button");b.type="button";b.className="track";b.dataset.k=key;b.dataset.i=i;
-  b.innerHTML=`<span class="no">${String(i+1).padStart(2,"0")}</span><span class="name"></span><span class="dur">${fmt(d)}</span>`;
-  const nm=b.querySelector(".name");nm.textContent=n;const s=document.createElement("span");s.className="note";s.textContent=note;nm.appendChild(s);
-  b.onclick=()=>{if(cur===key&&i===idx){audio.paused?audio.play():audio.pause()}else play(key,i)};li.appendChild(b);list.appendChild(li)});
- sec.querySelector(".play-all").onclick=()=>play(key,0);}
-function play(k,i){const T=A[k];if(i<0||i>=T.length)return;cur=k;idx=i;audio.src=T[i][3];audio.play().catch(()=>{});
+const HOOK="https://hook.eu2.make.com/8ff4gxqlwn2b2rixqyfzwv59vtvz94qq";
+let ST={songs:{},briefs:[]};
+const SL={neu:["Neu","b-neu"],arbeit:["In Arbeit","b-arbeit"],freigabe:["Zur Freigabe","b-freigabe"],frei:["Freigegeben","b-frei"],pub:["Veröffentlicht","b-pub"],aendern:["Ändern","b-aendern"]};
+const pkey=p=>p.split("?")[0];
+const pwv=()=>$("pw").value.trim();
+try{const v=localStorage.getItem("studio-pw");if(v)$("pw").value=v}catch(e){}
+$("pw").addEventListener("change",()=>{try{localStorage.setItem("studio-pw",pwv())}catch(e){}});
+async function load(){try{const r=await fetch(HOOK,{method:"POST",body:new URLSearchParams({action:"get"})});const j=await r.json();ST=Object.assign({songs:{},briefs:[]},j)}catch(e){}renderAll()}
+async function save(mut,msgEl){if(!pwv()){if(msgEl){msgEl.textContent="Bitte oben den Studio-Code eingeben.";msgEl.className="msg err"}return false}
+ try{const r0=await fetch(HOOK,{method:"POST",body:new URLSearchParams({action:"get"})});ST=Object.assign({songs:{},briefs:[]},await r0.json())}catch(e){}
+ mut(ST);ST.updated=new Date().toISOString();
+ const r=await fetch(HOOK,{method:"POST",body:new URLSearchParams({action:"save",pw:pwv(),body:JSON.stringify(ST)})});
+ if(!r.ok){if(msgEl){msgEl.textContent="Studio-Code falsch – nichts gespeichert.";msgEl.className="msg err"}return false}
+ try{localStorage.setItem("studio-pw",pwv())}catch(e){}
+ renderAll();return true}
+function badge(st){const b=SL[st]||null;if(!b)return null;const s=document.createElement("span");s.className="badge "+b[1];s.textContent=b[0];return s}
+function renderAll(){
+ for(const key in A){const sec=$(key),T=A[key],list=sec.querySelector("ol");list.innerHTML="";const showH=$("showhidden").checked;let vis=0,sum=0;
+  T.forEach(([n,d,note,path],i)=>{const S=ST.songs[pkey(path)]||{};if(S.hidden&&!showH)return;vis++;sum+=d;
+   const li=document.createElement("li");li.className="trk"+(S.hidden?" versteckt":"");const b=document.createElement("button");b.type="button";b.className="track";b.dataset.k=key;b.dataset.i=i;
+   b.innerHTML=`<span class="no">${String(vis).padStart(2,"0")}</span><span class="name"></span><span class="dur">${fmt(d)}</span>`;
+   const nm=b.querySelector(".name");nm.textContent=n;const s=document.createElement("span");s.className="note";const bg=badge(S.status);if(bg)s.appendChild(bg);s.appendChild(document.createTextNode(note));nm.appendChild(s);
+   if(S.spotify){const a=document.createElement("a");a.href=S.spotify;a.target="_blank";a.rel="noopener";a.className="sp";a.textContent="Spotify ↗";a.onclick=e=>e.stopPropagation();s.appendChild(a)}
+   b.onclick=()=>{if(cur===key&&i===idx){audio.paused?audio.play():audio.pause()}else play(key,i)};
+   const m=document.createElement("button");m.type="button";m.className="more";m.textContent="⋯";m.setAttribute("aria-label","Status und Freigabe für "+n);
+   m.onclick=()=>{const ex=li.querySelector(".ed");if(ex){ex.remove();return}li.appendChild(editor(path,n))};
+   li.append(b,m);list.appendChild(li)});
+  sec.querySelector(".meta").textContent=`${vis} ${key==="buch"?"Teile":(vis===1?"Song":"Songs")} · ${Math.round(sum/60)} Min.`;
+  sec.querySelector(".play-all").onclick=()=>play(key,0);}
+ document.querySelectorAll(".track").forEach(el=>el.setAttribute("aria-current",el.dataset.k===cur&&+el.dataset.i===idx?"true":"false"));
+ renderOrders()}
+function editor(path,n){const k=pkey(path),S=Object.assign({},ST.songs[k]||{});const d=document.createElement("div");d.className="ed";
+ d.innerHTML=`<div class="row2"><button type="button" class="btn" data-a="frei">✓ Passt</button><button type="button" class="btn ghost" data-a="aendern">✎ Ändern</button><button type="button" class="btn ghost" data-a="hide"></button></div>
+ <label class="fld">Status<select data-f="status"><option value="">–</option>${Object.entries(SL).map(([v,[t]])=>`<option value="${v}">${t}</option>`).join("")}</select></label>
+ <label class="fld">Spotify-Link<input data-f="spotify" placeholder="https://open.spotify.com/track/…"></label>
+ <label class="fld">Kommentar an Claude<textarea data-f="kommentar" placeholder="Was soll anders werden? Zeitpunkt angeben, z. B. 1:24"></textarea></label>
+ <button type="button" class="btn ghost" data-a="save">Speichern</button><div class="msg"></div>`;
+ d.querySelector('[data-f=status]').value=S.status||"";d.querySelector('[data-f=spotify]').value=S.spotify||"";d.querySelector('[data-f=kommentar]').value=S.kommentar||"";
+ const hb=d.querySelector('[data-a=hide]');hb.textContent=S.hidden?"Wieder einblenden":"Runternehmen";const msg=d.querySelector(".msg");
+ const go=async(patch)=>{msg.className="msg";msg.textContent="Speichere …";const v={status:d.querySelector('[data-f=status]').value,spotify:d.querySelector('[data-f=spotify]').value.trim(),kommentar:d.querySelector('[data-f=kommentar]').value.trim()};
+  const ok=await save(st=>{st.songs[k]=Object.assign({},st.songs[k]||{},v,patch,{titel:n,geaendert:new Date().toISOString()})},msg);if(ok)msg.textContent="Gespeichert."};
+ d.querySelector('[data-a=frei]').onclick=()=>go({status:"frei"});
+ d.querySelector('[data-a=aendern]').onclick=()=>{if(!d.querySelector('[data-f=kommentar]').value.trim()){msg.className="msg err";msg.textContent="Bitte kurz unter „Kommentar“ schreiben, was anders werden soll.";return}go({status:"aendern",offen:true})};
+ d.querySelector('[data-a=hide]').onclick=()=>go({hidden:!S.hidden});
+ d.querySelector('[data-a=save]').onclick=()=>go({});
+ return d}
+const AL={roots:"No Place for Hate",licht:"Licht an",reggae:"Reggaeton de Sudamérica",herz:"Herzarbeit",ewp:"Pachapunk",punk:"Laut & Klar",neu:"Neues Album"};
+function renderOrders(){const ul=$("orders");ul.innerHTML="";const B=(ST.briefs||[]).slice().reverse();
+ const fb=Object.entries(ST.songs||{}).filter(([k,v])=>v.status==="aendern"&&v.offen);
+ if(!B.length&&!fb.length){ul.innerHTML="<li>Noch keine Aufträge.</li>";return}
+ fb.forEach(([k,v])=>{const li=document.createElement("li");const bg=badge("aendern");li.appendChild(bg);const b=document.createElement("b");b.textContent=v.titel||k;li.appendChild(b);li.appendChild(document.createElement("br"));li.appendChild(document.createTextNode("Änderungswunsch: "+(v.kommentar||"")));ul.appendChild(li)});
+ B.forEach(o=>{const li=document.createElement("li");const bg=badge(o.status||"neu");if(bg)li.appendChild(bg);const b=document.createElement("b");b.textContent=o.titel||"(ohne Titel)";li.appendChild(b);
+  li.appendChild(document.createElement("br"));li.appendChild(document.createTextNode(`${AL[o.album]||o.album} · ${o.genre||""} · ${new Date(o.erstellt).toLocaleString("de-DE",{dateStyle:"short",timeStyle:"short"})}`));
+  if(o.notiz){li.appendChild(document.createElement("br"));const i=document.createElement("i");i.textContent="Claude: "+o.notiz;li.appendChild(i)}ul.appendChild(li)})}
+$("showhidden").onchange=renderAll;
+$("brief").addEventListener("submit",async e=>{e.preventDefault();const f=new FormData(e.target),o=Object.fromEntries(f.entries());const msg=$("briefmsg");
+ if(!o.titel&&!o.text&&!o.links){msg.className="msg err";msg.textContent="Bitte mindestens Thema, Text-Idee oder einen Beispiel-Link angeben.";return}
+ o.id="b"+Date.now();o.status="neu";o.erstellt=new Date().toISOString();msg.className="msg";msg.textContent="Sende …";
+ const ok=await save(st=>{st.briefs=st.briefs||[];st.briefs.push(o)},msg);if(ok){msg.textContent="Auftrag ist in der Warteschlange. Für sofortigen Start in Cowork einfach „Studio“ schreiben.";e.target.reset()}});
+renderAll();load();
+function play(k,i){const T=A[k];if(i<0||i>=T.length)return;const Sx=ST.songs[pkey(T[i][3])];if(Sx&&Sx.hidden&&!$("showhidden").checked){return play(k,i+1)}cur=k;idx=i;audio.src=T[i][3];audio.play().catch(()=>{});
  document.querySelectorAll(".track").forEach(el=>el.setAttribute("aria-current",el.dataset.k===k&&+el.dataset.i===i?"true":"false"));
  $("now").textContent=T[i][0];$("tot").textContent=fmt(T[i][1]);$("dock").hidden=false;}
 $("prev").onclick=()=>play(cur,audio.currentTime>3?idx:Math.max(0,idx-1));
