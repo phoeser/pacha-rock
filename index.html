@@ -109,7 +109,7 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
     <form class="card" id="brief">
       <h2>Briefing</h2>
       <div class="grid2">
-        <label class="fld">Album<select name="album"><option value="derap">Deutscher Reggae, Rap &amp; Hip-Hop (neu)</option><option value="roots">No Place for Hate (Roots Reggae)</option><option value="licht">Licht an (Akustik-Pop)</option><option value="reggae">Reggaeton de Sudamérica</option><option value="herz">Herzarbeit (Deutschpop)</option><option value="ewp">Pachapunk – Erste Welt Probleme</option><option value="punk">Laut &amp; Klar (Deutschpunk)</option><option value="neu">Neues Album …</option></select></label>
+        <label class="fld">Album<select name="album"><option value="derap">Pacha Deutschrap (Reggae, Rap &amp; Hip-Hop)</option><option value="roots">No Place for Hate (Roots Reggae)</option><option value="licht">Licht an (Akustik-Pop)</option><option value="reggae">Reggaeton de Sudamérica</option><option value="herz">Herzarbeit (Deutschpop)</option><option value="ewp">Pachapunk – Erste Welt Probleme</option><option value="punk">Laut &amp; Klar (Deutschpunk)</option><option value="neu">Neues Album …</option></select></label>
         <label class="fld">Arbeitstitel / Thema<input name="titel" placeholder="z. B. Sonntag am See"></label>
         <label class="fld">Genre<input name="genre" placeholder="z. B. Roots Reggae, One Drop"></label>
         <label class="fld">Tempo<select name="tempo"><option>passend zum Beispiel</option><option>langsam</option><option>mittel</option><option>schnell</option><option>sehr schnell</option></select></label>
@@ -156,8 +156,8 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
   <section id="derap" style="--c:#c2410c">
     <header>
       <div class="artist">Pachapaul · Deutscher Reggae, Rap &amp; Hip-Hop</div>
-      <h1>Neues <span class="hl">Album</span></h1>
-      <p class="lede">Neues Album auf Deutsch: Reggae trifft Ragga, Rap und Hip-Hop – mit Bläsern, tiefem Bass und klarer Haltung. Arbeitstitel, der Name kommt noch.</p>
+      <h1>Pacha <span class="hl">Deutschrap</span></h1>
+      <p class="lede">Neues Album auf Deutsch: Reggae trifft Ragga, Rap und Hip-Hop – mit Bläsern, tiefem Bass und klarer Haltung.</p>
       <div class="meta"></div>
     </header>
     <button class="play-all" type="button">▶ Alles abspielen</button>
@@ -404,7 +404,7 @@ function editor(path,n){const k=pkey(path),S=Object.assign({},ST.songs[k]||{});c
  d.querySelector('[data-a=hide]').onclick=()=>go({hidden:!S.hidden});
  d.querySelector('[data-a=save]').onclick=()=>go({});
  return d}
-const AL={derap:"Deutscher Reggae & Rap",roots:"No Place for Hate",licht:"Licht an",reggae:"Reggaeton de Sudamérica",herz:"Herzarbeit",ewp:"Pachapunk",punk:"Laut & Klar",neu:"Neues Album"};
+const AL={derap:"Pacha Deutschrap",roots:"No Place for Hate",licht:"Licht an",reggae:"Reggaeton de Sudamérica",herz:"Herzarbeit",ewp:"Pachapunk",punk:"Laut & Klar",neu:"Neues Album"};
 function renderOrders(){const ul=$("orders");ul.innerHTML="";const B=(ST.briefs||[]).slice().reverse();
  const fb=Object.entries(ST.songs||{}).filter(([k,v])=>v.status==="aendern"&&v.offen);
  if(!B.length&&!fb.length){ul.innerHTML="<li>Noch keine Aufträge.</li>";return}
