@@ -77,7 +77,11 @@ input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
 .msg{font-size:14px;color:var(--muted);min-height:1.2em}
 .msg.err{color:#c62f1f}
 .orders{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.orders li{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}
+.orders li{border:1px solid var(--line);border-radius:10px;padding:10px 40px 10px 12px;font-size:14px;position:relative}
+.ordx{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:transparent;color:inherit;font-size:16px;line-height:1;cursor:pointer}
+.ordx:hover{border-color:currentColor}
+.ordtools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.ordtools h2{margin:0}
 .orders b{font-family:var(--display);font-size:17px;font-weight:600}
 .badge{display:inline-block;font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.04em;padding:2px 8px;border-radius:999px;border:1px solid currentColor;margin-right:6px;vertical-align:2px;white-space:nowrap}
 .b-neu{color:#6b4bb8}.b-arbeit{color:#c08a1e}.b-freigabe{color:#d0562b}.b-frei{color:#2e8b3d}.b-pub{color:#1d7fb8}.b-aendern{color:#c62f1f}
@@ -123,7 +127,8 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
       <div class="msg" id="briefmsg"></div>
     </form>
     <div class="card">
-      <h2>Aufträge</h2>
+      <div class="ordtools"><h2>Aufträge</h2><button type="button" class="btn ghost" id="clrdone">Erledigte entfernen</button></div>
+      <div class="msg" id="ordmsg"></div>
       <ul class="orders" id="orders"><li>Lade …</li></ul>
     </div>
   </section>
@@ -169,7 +174,7 @@ li.trk.versteckt .name{opacity:.45;text-decoration:line-through}
   <section id="neu" style="--c:#6b4bb8">
     <header>
       <div class="artist">Pachapaul · Latin auf Spanisch</div>
-      <img class="cover" src="studio/cover.jpg?v=1" alt="Albumcover Gracias por la Noche" width="1000" height="1000" loading="lazy">
+      <img class="cover" src="studio/cover.jpg?v=2" alt="Albumcover Gracias por la Noche" width="1000" height="1000" loading="lazy">
       <h1>Gracias <span class="hl">por la Noche</span></h1>
       <p class="lede">Spanisches Album über Tanznächte, Durchhalten und Dankbarkeit – Latin-Pop, Pop-Rap und Gospel-Soul.</p>
       <div class="meta"></div>
@@ -406,13 +411,15 @@ function editor(path,n){const k=pkey(path),S=Object.assign({},ST.songs[k]||{});c
  d.querySelector('[data-a=save]').onclick=()=>go({});
  return d}
 const AL={derap:"Pacha Deutschrap",roots:"No Place for Hate",licht:"Licht an",reggae:"Reggaeton de Sudamérica",herz:"Herzarbeit",ewp:"Pachapunk",punk:"Laut & Klar",neu:"Gracias por la Noche",neues:"Neues Album"};
+function ordX(fn,label){const x=document.createElement("button");x.type="button";x.className="ordx";x.textContent="✕";x.title=label;x.setAttribute("aria-label",label);x.onclick=async()=>{const m=$("ordmsg");m.className="msg";m.textContent="Lösche …";const ok=await save(fn,m);if(ok)m.textContent="Gelöscht."};return x}
 function renderOrders(){const ul=$("orders");ul.innerHTML="";const B=(ST.briefs||[]).slice().reverse();
  const fb=Object.entries(ST.songs||{}).filter(([k,v])=>v.status==="aendern"&&v.offen);
  if(!B.length&&!fb.length){ul.innerHTML="<li>Noch keine Aufträge.</li>";return}
- fb.forEach(([k,v])=>{const li=document.createElement("li");const bg=badge("aendern");li.appendChild(bg);const b=document.createElement("b");b.textContent=v.titel||k;li.appendChild(b);li.appendChild(document.createElement("br"));li.appendChild(document.createTextNode("Änderungswunsch: "+(v.kommentar||"")));ul.appendChild(li)});
+ fb.forEach(([k,v])=>{const li=document.createElement("li");const bg=badge("aendern");li.appendChild(bg);const b=document.createElement("b");b.textContent=v.titel||k;li.appendChild(b);li.appendChild(document.createElement("br"));li.appendChild(document.createTextNode("Änderungswunsch: "+(v.kommentar||"")));li.appendChild(ordX(st=>{if(st.songs[k])st.songs[k].offen=false},"Änderungswunsch ausblenden"));ul.appendChild(li)});
  B.forEach(o=>{const li=document.createElement("li");const bg=badge(o.status||"neu");if(bg)li.appendChild(bg);const b=document.createElement("b");b.textContent=o.titel||"(ohne Titel)";li.appendChild(b);
   li.appendChild(document.createElement("br"));li.appendChild(document.createTextNode(`${AL[o.album]||o.album} · ${o.genre||""} · ${new Date(o.erstellt).toLocaleString("de-DE",{dateStyle:"short",timeStyle:"short"})}`));
-  if(o.notiz){li.appendChild(document.createElement("br"));const i=document.createElement("i");i.textContent="Claude: "+o.notiz;li.appendChild(i)}ul.appendChild(li)})}
+  if(o.notiz){li.appendChild(document.createElement("br"));const i=document.createElement("i");i.textContent="Claude: "+o.notiz;li.appendChild(i)}li.appendChild(ordX(st=>{st.briefs=(st.briefs||[]).filter(x=>x.id!==o.id)},"Auftrag löschen"));ul.appendChild(li)})}
+$("clrdone").onclick=async()=>{const m=$("ordmsg");m.className="msg";m.textContent="Räume auf …";const ok=await save(st=>{st.briefs=(st.briefs||[]).filter(x=>!["frei","pub"].includes(x.status))},m);if(ok)m.textContent="Erledigte Aufträge entfernt."};
 $("showhidden").onchange=renderAll;
 $("brief").addEventListener("submit",async e=>{e.preventDefault();const f=new FormData(e.target),o=Object.fromEntries(f.entries());const msg=$("briefmsg");
  if(!o.titel&&!o.text&&!o.links){msg.className="msg err";msg.textContent="Bitte mindestens Thema, Text-Idee oder einen Beispiel-Link angeben.";return}
